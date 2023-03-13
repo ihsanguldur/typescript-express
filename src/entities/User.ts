@@ -1,18 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    OneToMany
+} from "typeorm"
+import { Todo } from './Todo';
+import {Base} from "./Base";
 
 @Entity()
-export class User {
-
+export class User extends Base{
     @PrimaryGeneratedColumn()
-    id!: number
+    id!: number;
 
-    @Column()
-    firstName!: string
+    @Column({
+        nullable: false
+    })
+    email!: string;
 
-    @Column()
-    lastName!: string
+    @Column({
+        nullable: false
+    })
+    password!: string;
 
-    @Column()
-    age!: number
+    @OneToMany(() => Todo, (todo) => todo.user)
+    todos!: Todo[];
 
 }
