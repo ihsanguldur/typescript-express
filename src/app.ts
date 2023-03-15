@@ -1,4 +1,5 @@
 import express, {Request, Response, NextFunction} from 'express';
+import setupRoutes from './routes';
 import logger from 'morgan';
 import timeout from 'connect-timeout';
 import createError from 'http-errors';
@@ -12,9 +13,7 @@ app.use(express.json());
 
 app.use(haltOnTimedOut);
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-   res.send('hello');
-});
+setupRoutes(app);
 
 function haltOnTimedOut(req: Request, res: Response, next: NextFunction): void {
     if(!req.timedout) {

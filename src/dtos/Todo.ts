@@ -1,4 +1,8 @@
-import { object, number, string, TypeOf} from "zod";
+import { object, string, TypeOf} from "zod";
+
+export interface ITodoDto {
+    content: string;
+}
 
 const payload = {
     body: object({
@@ -10,15 +14,20 @@ const payload = {
 
 const params = {
     params: object({
-        userID: number({
-            required_error: "userID required"
+        todoID: string({
+            required_error: "todoID required"
         })
     })
 }
 
 export const createTodoDto = object({
-    ...payload,
-    ... params
+    ...payload
 });
 
-export type CreateTodoDto = Omit<TypeOf<typeof createTodoDto>, "params.userID">;
+export type CreateTodoDto = TypeOf<typeof createTodoDto>;
+
+export const getTodoDto = object({
+    ...params
+});
+
+export type GetTodoDto = TypeOf<typeof getTodoDto>;

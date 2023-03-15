@@ -1,4 +1,9 @@
-import {object, string, date, TypeOf} from "zod";
+import {object, string, TypeOf} from "zod";
+
+export interface IUserDto {
+    email: string;
+    password: string;
+}
 
 const payload = {
     body: object({
@@ -12,8 +17,8 @@ const payload = {
     })
 }
 
-export const createUserDto = object({
+export const userDto = object({
     ...payload
 });
 
-export type CreateUserDto = Omit<TypeOf<typeof createUserDto>, "body.password">;
+export type UserDto = Omit<TypeOf<typeof userDto>, "body.password">;
